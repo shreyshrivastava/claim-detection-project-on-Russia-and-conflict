@@ -209,6 +209,7 @@ def query_hf_llm(claim: str, documents: list[EvidenceDocument]) -> dict[str, obj
     headers = {
         "Authorization": f"Bearer {token}",
         "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0",
     }
 
     evidence_text = ""

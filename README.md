@@ -185,32 +185,6 @@ tests/                      unit, API, RSS, evaluation, and benchmark tests
 docs/                       audit, deployment, privacy, and architecture notes
 ```
 
-## Resume Positioning
-
-Best title: **Claim Evidence Checker: Reproducible Fact-Checking Pipeline Demo**
-
-One-line description:
-
-> Converted a notebook-only BERT/SVM claim-detection experiment into a deployable FastAPI evidence-screening service with deterministic evaluation, latency benchmarks, CI, Docker, and overfitting audit guardrails.
-
-Suitable roles:
-
-- Applied AI Engineer
-- LLM/Generative AI Engineer
-- Machine Learning Engineer
-- Python Backend Engineer
-
-Technologies to mention:
-
-- Python, FastAPI, scikit-learn, TF-IDF, pytest, Docker, Render, GitHub Actions
-
-Technologies to avoid over-emphasizing until artifacts are reproducible:
-
-- BERT model performance
-- fact-checking accuracy
-- real-time RSS verification
-- conflict-specific production reliability
-
 ## License
 
 MIT License.

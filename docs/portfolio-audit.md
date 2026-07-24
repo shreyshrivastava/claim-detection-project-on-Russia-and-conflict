@@ -41,9 +41,9 @@ Current overall score: 6.2/10.
 
 - Clean FastAPI package replacing notebook-only execution.
 - Deterministic evidence-ranking and stance-screening pipeline.
-- 24 local tests covering core logic, API validation, RSS mocking, evaluation, and benchmarks.
+- 27 local tests covering core logic, API validation, artifact fallback, RSS mocking, evaluation, and benchmarks.
 - Synthetic evaluation with non-perfect verdict accuracy, so results are not overclaimed.
-- Overfitting audit helper for future real model prediction files.
+- Leakage audit helper for future real model prediction files.
 - Docker and Render deployment configuration.
 
 ## Weaknesses
@@ -59,7 +59,7 @@ Current overall score: 6.2/10.
 - Added `claim_detection/` package with API, CLI, preprocessing, claim scoring, evidence ranking, stance screening, RSS ingestion, and pipeline assembly.
 - Added synthetic evidence and evaluation fixtures.
 - Added reproducible evaluation and benchmark scripts.
-- Added overfitting/generalization audit script.
+- Added overfitting/leakage audit script.
 - Added pytest suite.
 - Added GitHub Actions CI and benchmark workflow.
 - Added Dockerfile, Render blueprint, runtime file, dependency files, `.gitignore`, and MIT license.
@@ -68,7 +68,7 @@ Current overall score: 6.2/10.
 
 ## Tests
 
-Latest local result: `24 passed`.
+Latest local result: `27 passed`.
 
 Commands run:
 
@@ -97,6 +97,9 @@ Latest local deterministic benchmark. These are latency measurements, not accura
 - claim scoring median latency: `0.0419 ms`
 - evidence ranking median latency: `2.4488 ms`
 - full analysis median latency: `2.4862 ms`
+- claim scoring median: `0.0456 ms`
+- evidence ranking median: `2.2767 ms`
+- full analysis median: `2.2747 ms`
 
 Benchmarks exclude BERT embedding generation, live RSS fetching, and deployed network latency.
 
@@ -123,8 +126,8 @@ Converted a notebook-only BERT/SVM claim-detection experiment into a deployable 
 ## Resume Bullets
 
 - Productionized a notebook-based claim-detection experiment into a FastAPI service with deterministic claim scoring, TF-IDF evidence ranking, and coarse stance classification.
-- Added 24 pytest tests, GitHub Actions CI, Docker/Render deployment configuration, and API health checks that run without GPUs, model downloads, paid APIs, or live RSS feeds.
-- Built synthetic evaluation and latency benchmark pipelines; measured 0.7500 verdict accuracy on 8 synthetic cases and 2.4862 ms median deterministic full-analysis latency locally.
+- Added 27 pytest tests, GitHub Actions CI, Docker/Render deployment configuration, and API health checks that run without GPUs, model downloads, paid APIs, or live RSS feeds.
+- Built synthetic evaluation and latency benchmark pipelines; measured 0.7500 verdict accuracy on 8 synthetic cases and 2.2747 ms median deterministic full-analysis latency locally.
 - Added overfitting and leakage audit tooling to flag perfect scores, duplicate split examples, and train-validation/test metric gaps before model metrics are used.
 
 ## Remaining Limitations
@@ -137,4 +140,4 @@ Converted a notebook-only BERT/SVM claim-detection experiment into a deployable 
 
 ## Recommended Next Step
 
-Deploy the FastAPI service to Render from this branch, then add real model artifacts or a reproducible public dataset only if the generalization audit does not flag overfitting or leakage.
+Deploy the FastAPI service to Render from this branch, then add real model artifacts or a reproducible public dataset only if the leakage audit does not flag overfitting or contamination.

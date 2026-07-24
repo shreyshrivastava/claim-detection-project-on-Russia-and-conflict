@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main, agent/claim-detection-portfolio-upgrades]
+    branches: [main, "agent/**"]
   pull_request:
     branches: [main]
 
@@ -41,6 +41,9 @@ jobs:
 
       - name: Run benchmark smoke test
         run: python benchmarks/run_benchmarks.py --smoke
+
+      - name: Build Docker image
+        run: docker build -t claim-evidence-checker:ci .
 
       - name: Validate FastAPI health endpoint
         run: |

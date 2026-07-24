@@ -30,14 +30,15 @@ The original notebook records the following historical BERT/SVM results:
 - Test accuracy: `0.9061`
 - Test F1: `0.9068`
 
-Those numbers are preserved only as historical notebook output. They are **not reproduced by the clean repository** because the original data files and trained model artifacts are not tracked. The repo now includes [`evaluation/generalization_audit.py`](evaluation/generalization_audit.py) to flag suspicious perfect scores, large train-validation gaps, small split sizes, and duplicated examples across splits when real prediction files are available.
+Those numbers are preserved only as historical notebook output. They are **not reproduced by the clean repository** because the original data files and trained model artifacts are not tracked. The repo now includes [`evaluation/leakage_audit.py`](evaluation/leakage_audit.py) to flag suspicious perfect scores, large train-validation gaps, small split sizes, and duplicated claim/evidence examples across splits when real prediction files are available.
 
 ## Architecture
 
 ```mermaid
 flowchart LR
     U["User / API Client"] --> A["FastAPI app or CLI"]
-    A --> P["Text preprocessing"]
+    A --> M["Artifact-aware model service"]
+    M --> P["Text preprocessing"]
     P --> C["Claim-likelihood scoring"]
     P --> R["TF-IDF evidence ranking"]
     R --> S["Coarse stance screening"]
@@ -61,6 +62,8 @@ Health check:
 ```bash
 curl http://127.0.0.1:8000/health
 ```
+
+The health response includes the app mode and any missing historical model artifacts.
 
 Analyze a claim:
 
@@ -106,9 +109,9 @@ Latest local deterministic benchmark. These are latency measurements in millisec
 
 | Operation | Median latency (ms) | p95 latency (ms) |
 |---|---:|---:|
-| Claim scoring | `0.0419` | `0.0425` |
-| Evidence ranking | `2.4488` | `2.5352` |
-| Full analysis | `2.4862` | `2.5455` |
+| Claim scoring | `0.0456` | `0.0905` |
+| Evidence ranking | `2.2767` | `2.4855` |
+| Full analysis | `2.2747` | `2.4567` |
 
 These measurements exclude BERT embedding generation, live RSS fetching, and deployed network latency. Full details are saved in [`benchmarks/results.md`](benchmarks/results.md).
 
@@ -122,7 +125,7 @@ python -m compileall claim_detection evaluation benchmarks tests
 pytest
 ```
 
-Latest local result: `24 passed`.
+Latest local result: `27 passed`.
 
 ## CI/CD
 
@@ -169,7 +172,11 @@ See [`docs/limitations.md`](docs/limitations.md).
 
 ```text
 claim_detection/
-    api.py                  FastAPI app and demo UI
+    api.py                  FastAPI app and health check
+    config.py               path configuration and artifact discovery
+    embeddings.py           lazy BERT embedding helper extracted from notebooks
+    model.py                artifact-aware model service with fallback mode
+    ui.py                   polished public HTML interface
     claim_detector.py       deterministic claim-likelihood scoring
     evidence.py             TF-IDF evidence ranking
     stance.py               coarse lexical stance screening
@@ -178,12 +185,13 @@ claim_detection/
 evaluation/
     datasets/               synthetic evaluation fixtures
     run_evaluation.py       reproducible deterministic evaluation
-    generalization_audit.py overfitting/leakage audit helper
+    leakage_audit.py        overfitting/leakage audit helper
 benchmarks/
     run_benchmarks.py       latency and memory benchmark script
 tests/                      unit, API, RSS, evaluation, and benchmark tests
 docs/                       audit, deployment, privacy, and architecture notes
 ```
+
 
 ## License
 

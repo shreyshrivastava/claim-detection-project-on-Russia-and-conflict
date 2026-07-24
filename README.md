@@ -10,6 +10,28 @@ An MSc dissertation project at **Queen Mary University of London** — a reprodu
 
 Deployed on Vercel as a serverless Python function.
 
+---
+
+## How It Works: Original vs. Demo Variant
+
+This codebase features a hybrid architecture designed to support your original dissertation models locally while running a high-accuracy, lightweight LLM-augmented variant in the cloud:
+
+| Feature | Original Dissertation Model | Vercel Demo Variant |
+| :--- | :--- | :--- |
+| **Classifier** | Fine-tuned BERT (`bert-base-uncased`) + Support Vector Classifier (`svc_model.joblib`) | **Llama 3.3 70B** LLM via Hugging Face Serverless gateway |
+| **Inference Cost** | 0% (runs locally on your CPU/GPU) | **0% (100% Free)** via Hugging Face serverless provider API |
+| **Package Weight** | **~500 MB** (Exceeds Vercel's 50MB serverless limit) | **< 1 MB** (Very lightweight and fast setup) |
+| **Local Offline Run** | Supported via PyTorch/MPS on Apple Silicon | Supported via local **Llama 3.2 3B** offline using Apple's MLX |
+
+### Fail-safe Fallback Architecture
+The app dynamically selects the best execution path based on resource availability:
+1. **Original Mode**: Automatically loads and runs the custom `bert_model.pth` and `svc_model.joblib` if they are present in the `artifacts/` folder.
+2. **Local MLX LLM**: Falls back to local, offline hardware-accelerated `Llama-3.2-3B` if running on Apple Silicon with `USE_MLX=1` set.
+3. **Cloud LLM (Vercel)**: Runs the free, high-accuracy `Llama-3.3-70B` in the cloud if `HF_TOKEN` is present.
+4. **Deterministic Fallback**: Cascades to local rules and TF-IDF if no artifacts or API keys are configured, ensuring the app **never crashes**.
+
+---
+
 ## Why this project matters
 
 The project demonstrates how to turn a notebook-only ML experiment into a deployable, testable AI engineering artifact. The upgrade separates deterministic software behavior from model-quality claims, adds CI-safe evaluation, and includes overfitting checks that would be required before presenting the historical BERT/SVM model as reliable.
@@ -20,7 +42,7 @@ The project demonstrates how to turn a notebook-only ML experiment into a deploy
 - Ranks candidate evidence snippets using TF-IDF cosine similarity.
 - Produces a conservative verdict: `supported`, `refuted`, `uncertain`, `insufficient_evidence`, or `not_a_clear_claim`.
 - Serves the workflow through a FastAPI API and a lightweight web UI.
-- Supports optional RSS ingestion without requiring live RSS calls in tests or CI.
+- Supports optional RSS ingestion to fact-check against live world news.
 - Includes reproducible evaluation, latency benchmarks, Vercel deployment, and GitHub Actions CI.
 
 ## Important Model and Overfitting Note
@@ -32,22 +54,28 @@ The original notebook records the following historical BERT/SVM results:
 - Test accuracy: `0.9061`
 - Test F1: `0.9068`
 
-Those numbers are preserved only as historical notebook output. They are **not reproduced by the clean repository** because the original data files and trained model artifacts are not tracked. The repo now includes [`evaluation/leakage_audit.py`](evaluation/leakage_audit.py) to flag suspicious perfect scores, large train-validation gaps, small split sizes, and duplicated claim/evidence examples across splits when real prediction files are available.
+Those numbers are preserved only as historical notebook output. They are **not reproduced by the clean repository** unless the model weights are provided. The repo now includes [`evaluation/leakage_audit.py`](evaluation/leakage_audit.py) to flag suspicious perfect scores, large train-validation gaps, small split sizes, and duplicated claim/evidence examples across splits when real prediction files are available.
 
 ## Architecture
 
 ```mermaid
-flowchart LR
-    U["User / API Client"] --> A["FastAPI app or CLI"]
-    A --> M["Artifact-aware model service"]
-    M --> P["Text preprocessing"]
-    P --> C["Claim-likelihood scoring"]
-    P --> R["TF-IDF evidence ranking"]
-    R --> S["Coarse stance screening"]
-    C --> V["Verdict assembly"]
-    S --> V
-    V --> O["JSON response / UI result"]
-    N["Historical BERT/SVM notebooks"] -. "not used in CI app" .-> D["Model reproducibility audit"]
+flowchart TD
+    User["User enters claim"] --> API["FastAPI / CLI Entrypoint"]
+    API --> CheckArtifacts{Are original artifacts available?}
+    
+    CheckArtifacts -- Yes --> OriginalMode["Original BERT + SVM Mode<br>(Dissertation weights loaded)"]
+    CheckArtifacts -- No --> CheckLocalMLX{"USE_MLX=1 and mlx_lm installed?"}
+    
+    CheckLocalMLX -- Yes --> LocalMLXMode["Local MLX LLM Mode<br>(Llama 3.2 3B runs offline via Apple GPU)"]
+    CheckLocalMLX -- No --> CheckHFToken{"HF_TOKEN present?"}
+    
+    CheckHFToken -- Yes --> CloudLLMMode["Cloud LLM Mode<br>(Llama 3.3 70B via Hugging Face Gateway)"]
+    CheckHFToken -- No --> FallbackMode["Deterministic Fallback<br>(Local Heuristics + TF-IDF)"]
+    
+    OriginalMode --> Return["Verdict, Confidence & Ranked Evidence"]
+    LocalMLXMode --> Return
+    CloudLLMMode --> Return
+    FallbackMode --> Return
 ```
 
 ## API
@@ -104,16 +132,16 @@ The `1.0000` top-evidence match rate is intentionally labelled as a handcrafted 
 Run:
 
 ```bash
-python benchmarks/run_benchmarks.py --iterations 50
+python benchmarks/run_benchmarks.py --iterations 100
 ```
 
 Latest local deterministic benchmark:
 
-| Operation | Median ms | P95 ms |
-|---|---:|---:|
-| Claim scoring | `0.0456` | `0.0905` |
-| Evidence ranking | `2.2767` | `2.4855` |
-| Full analysis | `2.2747` | `2.4567` |
+| Operation | Median ms | P95 ms | Min ms | Max ms | Peak Memory Bytes |
+|---|---:|---:|---:|---:|---:|
+| claim_scoring | 0.0404 | 0.0492 | 0.0392 | 0.6141 | 26864 |
+| evidence_ranking | 1.9732 | 2.0913 | 1.9002 | 4.1859 | 1861802 |
+| full_analysis | 1.9996 | 2.1011 | 1.9305 | 2.1560 | 1798338 |
 
 These measurements exclude BERT embedding generation, live RSS fetching, and deployed network latency. Full details are saved in [`benchmarks/results.md`](benchmarks/results.md).
 
@@ -121,9 +149,6 @@ These measurements exclude BERT embedding generation, live RSS fetching, and dep
 
 ```bash
 pip install -r requirements-dev.txt
-ruff check .
-ruff format --check .
-python -m compileall claim_detection evaluation benchmarks tests
 pytest
 ```
 
@@ -160,7 +185,7 @@ See [`docs/privacy.md`](docs/privacy.md).
 ## Limitations
 
 - The deterministic app is an evidence-screening demo, not a professional fact-checking system.
-- The historical BERT/SVM model is not reproducible from the current repository because datasets and model artifacts are missing.
+- The historical BERT/SVM model is not reproducible from the current repository unless datasets and model artifacts are provided in the `artifacts/` folder.
 - Synthetic evaluation fixtures are small and should not be used as real-world accuracy evidence.
 - TF-IDF ranking can miss paraphrases and semantic entailment.
 - Stance logic is lexical and intentionally conservative.

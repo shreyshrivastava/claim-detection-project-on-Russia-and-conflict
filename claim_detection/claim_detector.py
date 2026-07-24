@@ -37,6 +37,11 @@ ASSERTIVE_VERBS = {
     "retreated",
     "withdrew",
     "invaded",
+    "counterattack",
+    "counterattacks",
+    "offensive",
+    "defenses",
+    "defense",
     # Statement and reporting verbs
     "claimed",
     "stated",
@@ -51,12 +56,22 @@ ASSERTIVE_VERBS = {
     "demanded",
     "agreed",
     "met",
-    # Occurrence verbs
+    "discussed",
+    "visited",
+    "hosted",
+    "pledged",
+    "promised",
+    "criticized",
+    # Occurrence and result verbs
     "occurred",
     "happened",
     "began",
     "ended",
     "ceased",
+    "fails",
+    "failed",
+    "succeeds",
+    "succeeded",
 }
 
 HEDGING_TERMS = {

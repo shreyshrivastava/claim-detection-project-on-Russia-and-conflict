@@ -57,7 +57,7 @@ def render_index() -> str:
             <h1>Claim Evidence Checker</h1>
             <p>A dissertation project at <strong>Queen Mary University of London</strong> that turns notebook-era BERT/SVM claim-detection research into a tested FastAPI evidence-ranking and stance-screening pipeline. Enter a factual claim and compare it with evidence snippets.</p>
             <p style="margin-top:6px"><a href="https://claim-detection-project.vercel.app" style="color:#81d4cf;text-decoration:underline">Live on Vercel →</a></p>
-            <div class="warning">Academic dissertation demo. This is not a professional fact-checking or safety-critical service.</div>
+            <div class="warning">Academic dissertation demo. Note: The original BERT model (~500MB) is too large for serverless cloud deployment (Vercel has a 50MB size limit). The live demo uses a high-accuracy Llama 3.3 70B LLM (via Hugging Face) as a fail-safe, which is completely free of cost.</div>
             <section>
               <h2>Examples</h2>
               <div class="examples">

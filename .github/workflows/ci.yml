@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches: [main, agent/claim-detection-portfolio-upgrades]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Format check
+        run: ruff format --check .
+
+      - name: Compile Python
+        run: python -m compileall claim_detection evaluation benchmarks tests
+
+      - name: Run tests
+        run: pytest
+
+      - name: Run deterministic evaluation
+        run: python evaluation/run_evaluation.py
+
+      - name: Run benchmark smoke test
+        run: python benchmarks/run_benchmarks.py --smoke
+
+      - name: Validate FastAPI health endpoint
+        run: |
+          uvicorn claim_detection.api:app --host 127.0.0.1 --port 8000 &
+          APP_PID=$!
+          for i in {1..20}; do
+            if curl -fsS http://127.0.0.1:8000/health; then
+              kill $APP_PID
+              exit 0
+            fi
+            sleep 1
+          done
+          kill $APP_PID
+          exit 1

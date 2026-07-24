@@ -1,0 +1,124 @@
+{
+  "metadata": {
+    "generated_at": "2026-07-24T07:28:52.414586+00:00",
+    "python": "3.12.13",
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "dataset": "evaluation/datasets/synthetic_claims.jsonl",
+    "mode": "full",
+    "evaluated_system": "deterministic claim screening and evidence ranking package",
+    "not_evaluated": "historical BERT/SVM notebook model; artifacts are not present"
+  },
+  "metrics": {
+    "case_count": 8,
+    "verdict_accuracy": 0.75,
+    "top_evidence_match_rate": 1.0,
+    "deterministic_reproducibility": true,
+    "predicted_verdict_counts": {
+      "not_a_clear_claim": 2,
+      "refuted": 3,
+      "supported": 3
+    }
+  },
+  "warnings": [
+    "Small synthetic fixture; do not present these numbers as real-world model accuracy.",
+    "Top-evidence ranking uses handcrafted lexical fixtures; 1.0 here is a smoke-test signal."
+  ],
+  "cases": [
+    {
+      "id": "case-001",
+      "claim": "The International Relief Mission delivered 20 generators to Northport hospital on Tuesday.",
+      "expected_verdict": "supported",
+      "predicted_verdict": "supported",
+      "verdict_match": true,
+      "expected_top_evidence_id": "doc-001",
+      "predicted_top_evidence_id": "doc-001",
+      "top_evidence_match": true,
+      "claim_score": 0.8,
+      "confidence": 0.7702
+    },
+    {
+      "id": "case-002",
+      "claim": "The coastal power plant restarted full operations on Friday.",
+      "expected_verdict": "refuted",
+      "predicted_verdict": "refuted",
+      "verdict_match": true,
+      "expected_top_evidence_id": "doc-002",
+      "predicted_top_evidence_id": "doc-002",
+      "top_evidence_match": true,
+      "claim_score": 0.6,
+      "confidence": 0.688
+    },
+    {
+      "id": "case-003",
+      "claim": "The border rail crossing reopened for humanitarian freight after an inspection pause.",
+      "expected_verdict": "supported",
+      "predicted_verdict": "supported",
+      "verdict_match": true,
+      "expected_top_evidence_id": "doc-003",
+      "predicted_top_evidence_id": "doc-003",
+      "top_evidence_match": true,
+      "claim_score": 0.45,
+      "confidence": 0.7702
+    },
+    {
+      "id": "case-004",
+      "claim": "A satellite internet hub opened in Lydan province this morning.",
+      "expected_verdict": "uncertain",
+      "predicted_verdict": "refuted",
+      "verdict_match": false,
+      "expected_top_evidence_id": "doc-005",
+      "predicted_top_evidence_id": "doc-005",
+      "top_evidence_match": true,
+      "claim_score": 0.55,
+      "confidence": 0.2986
+    },
+    {
+      "id": "case-005",
+      "claim": "Did officials discuss the school repair grant?",
+      "expected_verdict": "not_a_clear_claim",
+      "predicted_verdict": "not_a_clear_claim",
+      "verdict_match": true,
+      "expected_top_evidence_id": "doc-004",
+      "predicted_top_evidence_id": "doc-004",
+      "top_evidence_match": true,
+      "claim_score": 0.05,
+      "confidence": 0.95
+    },
+    {
+      "id": "case-006",
+      "claim": "The ministry purchased emergency radio units for three clinics.",
+      "expected_verdict": "uncertain",
+      "predicted_verdict": "not_a_clear_claim",
+      "verdict_match": false,
+      "expected_top_evidence_id": "doc-006",
+      "predicted_top_evidence_id": "doc-006",
+      "top_evidence_match": true,
+      "claim_score": 0.25,
+      "confidence": 0.75
+    },
+    {
+      "id": "case-007",
+      "claim": "Observers documented shelling near Eastford on Monday.",
+      "expected_verdict": "supported",
+      "predicted_verdict": "supported",
+      "verdict_match": true,
+      "expected_top_evidence_id": "doc-007",
+      "predicted_top_evidence_id": "doc-007",
+      "top_evidence_match": true,
+      "claim_score": 0.65,
+      "confidence": 0.746
+    },
+    {
+      "id": "case-008",
+      "claim": "The ceasefire corridor opened after midnight.",
+      "expected_verdict": "refuted",
+      "predicted_verdict": "refuted",
+      "verdict_match": true,
+      "expected_top_evidence_id": "doc-008",
+      "predicted_top_evidence_id": "doc-008",
+      "top_evidence_match": true,
+      "claim_score": 0.55,
+      "confidence": 0.7091
+    }
+  ]
+}

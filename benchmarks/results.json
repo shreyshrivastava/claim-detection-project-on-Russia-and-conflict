@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "generated_at": "2026-07-24T07:28:53.168139+00:00",
+    "python": "3.12.13",
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "iterations": 50,
+    "mode": "full",
+    "methodology": "Local deterministic latency measurements; no BERT, RSS, network, or paid API calls."
+  },
+  "benchmarks": {
+    "claim_scoring": {
+      "iterations": 50,
+      "median_ms": 0.0419,
+      "p95_ms": 0.0425,
+      "min_ms": 0.0394,
+      "max_ms": 1.3095,
+      "peak_memory_bytes": 27488
+    },
+    "evidence_ranking": {
+      "iterations": 50,
+      "median_ms": 2.4488,
+      "p95_ms": 2.5352,
+      "min_ms": 2.3197,
+      "max_ms": 5.8024,
+      "peak_memory_bytes": 759481
+    },
+    "full_analysis": {
+      "iterations": 50,
+      "median_ms": 2.4862,
+      "p95_ms": 2.5455,
+      "min_ms": 2.3738,
+      "max_ms": 2.8485,
+      "peak_memory_bytes": 601017
+    }
+  }
+}

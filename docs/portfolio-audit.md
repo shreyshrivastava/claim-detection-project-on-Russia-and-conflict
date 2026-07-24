@@ -92,11 +92,11 @@ The top-evidence result is labelled as a handcrafted fixture smoke-test signal, 
 
 ## Benchmarks
 
-Latest local deterministic benchmark:
+Latest local deterministic benchmark. These are latency measurements, not accuracy metrics:
 
-- claim scoring median: `0.0419 ms`
-- evidence ranking median: `2.4488 ms`
-- full analysis median: `2.4862 ms`
+- claim scoring median latency: `0.0419 ms`
+- evidence ranking median latency: `2.4488 ms`
+- full analysis median latency: `2.4862 ms`
 
 Benchmarks exclude BERT embedding generation, live RSS fetching, and deployed network latency.
 

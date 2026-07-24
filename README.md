@@ -102,9 +102,9 @@ Run:
 python benchmarks/run_benchmarks.py --iterations 50
 ```
 
-Latest local deterministic benchmark:
+Latest local deterministic benchmark. These are latency measurements in milliseconds, not accuracy scores:
 
-| Operation | Median ms | P95 ms |
+| Operation | Median latency (ms) | p95 latency (ms) |
 |---|---:|---:|
 | Claim scoring | `0.0419` | `0.0425` |
 | Evidence ranking | `2.4488` | `2.5352` |

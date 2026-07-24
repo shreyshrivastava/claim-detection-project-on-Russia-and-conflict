@@ -100,7 +100,8 @@ def write_reports(results: dict[str, object], output_dir: Path = DEFAULT_OUTPUT_
         "",
         "## Latency",
         "",
-        "| Operation | Median ms | P95 ms | Min ms | Max ms | Peak Memory Bytes |",
+        "| Operation | Median latency (ms) | p95 latency (ms) | Min latency (ms) | "
+        "Max latency (ms) | Peak memory (bytes) |",
         "|---|---:|---:|---:|---:|---:|",
     ]
     for name, metrics in results["benchmarks"].items():

@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from evaluation.generalization_audit import PredictionRecord, audit_splits
+from evaluation.leakage_audit import PredictionRecord, audit_splits
 from evaluation.run_evaluation import run_evaluation, write_reports
 
 
@@ -19,7 +19,7 @@ def test_write_evaluation_reports(tmp_path: Path) -> None:
     assert "Evaluation Results" in (tmp_path / "results.md").read_text()
 
 
-def test_generalization_audit_flags_perfect_train_scores_and_duplicates() -> None:
+def test_leakage_audit_flags_perfect_train_scores_and_duplicates() -> None:
     results = audit_splits(
         {
             "train": [
@@ -35,4 +35,15 @@ def test_generalization_audit_flags_perfect_train_scores_and_duplicates() -> Non
 
     warnings = " ".join(results["warnings"])
     assert "perfect score" in warnings
-    assert "Duplicate text keys" in warnings
+    assert "Duplicate claim/evidence keys" in warnings
+
+
+def test_leakage_audit_hashes_duplicate_claim_evidence_pairs() -> None:
+    results = audit_splits(
+        {
+            "train": [PredictionRecord("supported", "supported", "same claim", "same evidence")],
+            "test": [PredictionRecord("supported", "refuted", " same   claim ", "same evidence")],
+        }
+    )
+
+    assert results["duplicate_claim_evidence_key_count"] == 1

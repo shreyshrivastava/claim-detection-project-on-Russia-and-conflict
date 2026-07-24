@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from claim_detection.config import DEFAULT_EVIDENCE_PATH
 from claim_detection.schemas import EvidenceDocument
 
 
@@ -30,4 +31,4 @@ def load_evidence_jsonl(path: str | Path) -> list[EvidenceDocument]:
 
 
 def load_default_evidence() -> list[EvidenceDocument]:
-    return load_evidence_jsonl(Path(__file__).resolve().parents[1] / "examples" / "evidence.jsonl")
+    return load_evidence_jsonl(DEFAULT_EVIDENCE_PATH)

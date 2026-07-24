@@ -3,6 +3,7 @@
 - This is an evidence-screening demo, not a professional fact-checking system.
 - The deployed app is deterministic and lexical; it does not run the historical BERT/SVM model.
 - The original datasets and trained model artifacts are not present in the clean repository, so notebook metrics are not independently reproducible.
+- `/health` reports artifact availability so reviewers can see whether the historical BERT/SVM files are present.
 - Synthetic evaluation results are useful for regression testing, but they are not real-world model quality evidence.
 - TF-IDF similarity can miss paraphrases, sarcasm, multilingual text, and semantic entailment.
 - Lexical stance markers can misclassify nuanced or multi-sentence evidence.

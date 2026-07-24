@@ -1,18 +1,20 @@
 # Deployment
 
-Render is the recommended host for the current version because the app is a Dockerized FastAPI service. It does not require Streamlit, GPUs, API keys, model downloads, or persistent storage.
+Vercel is the target host for the public dissertation demo. The app uses Vercel's Python runtime to serve the existing FastAPI application from `api/index.py`.
 
-## Render Blueprint
+The deployment is intentionally CPU-only and does not require paid APIs, GPUs, private datasets, model downloads, or secrets.
 
-1. Push the branch containing `render.yaml` and `Dockerfile`.
-2. In Render, create a new Blueprint from the GitHub repository.
-3. Select the `claim-evidence-checker` service.
-4. Use the free plan unless traffic requirements change.
-5. Confirm the health check path is `/health`.
+## Vercel Setup
+
+1. Push the branch containing `vercel.json` and `api/index.py`.
+2. In Vercel, import the GitHub repository.
+3. Keep the project root at the repository root.
+4. Let Vercel install `requirements.txt`.
+5. Deploy the project.
 6. After deployment, verify:
 
 ```bash
-curl https://YOUR_RENDER_SERVICE.onrender.com/health
+curl https://YOUR_VERCEL_PROJECT.vercel.app/health
 ```
 
 Expected response:
@@ -27,12 +29,18 @@ Expected response:
 }
 ```
 
+## Vercel Files
+
+- `vercel.json`: routes all requests to the Python FastAPI function.
+- `api/index.py`: imports the FastAPI `app` from `claim_detection.api`.
+- `runtime.txt`: pins Python 3.12 for hosting compatibility.
+
 ## Cost Profile
 
 - No paid LLM or search APIs.
 - No hosted model inference.
 - No GPU requirement.
-- Free Render services can cold start after inactivity.
+- No persistent database or object storage requirement.
 
 ## Production Hardening Still Needed
 

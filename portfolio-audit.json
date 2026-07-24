@@ -25,11 +25,11 @@
   },
   "live_url": "",
   "ci_status": "Workflow added; not yet verified on GitHub for this branch",
-  "deployment_status": "Render Docker deployment files prepared; live URL not verified",
+  "deployment_status": "Vercel deployment files prepared; live URL not verified",
   "benchmark_summary": {
-    "claim_scoring_median_ms": 0.0456,
-    "evidence_ranking_median_ms": 2.2767,
-    "full_analysis_median_ms": 2.2747,
+    "claim_scoring_median_ms": 0.0436,
+    "evidence_ranking_median_ms": 2.1576,
+    "full_analysis_median_ms": 2.2146,
     "iterations": 50,
     "environment": "macOS-26.5.2-arm64-arm-64bit-Mach-O, Python 3.14.5"
   },
@@ -42,12 +42,12 @@
   },
   "resume_bullets": [
     "Productionized a notebook-based claim-detection experiment into a FastAPI service with deterministic claim scoring, TF-IDF evidence ranking, and coarse stance classification.",
-    "Added 27 pytest tests, GitHub Actions CI, Docker/Render deployment configuration, and API health checks that run without GPUs, model downloads, paid APIs, or live RSS feeds.",
-    "Built synthetic evaluation and latency benchmark pipelines; measured 0.7500 verdict accuracy on 8 synthetic cases and 2.2747 ms median deterministic full-analysis latency locally.",
+    "Added 27 pytest tests, GitHub Actions CI, Vercel deployment configuration, and API health checks that run without GPUs, model downloads, paid APIs, or live RSS feeds.",
+    "Built synthetic evaluation and latency benchmark pipelines; measured 0.7500 verdict accuracy on 8 synthetic cases and 2.2146 ms median deterministic full-analysis latency locally.",
     "Added overfitting and leakage audit tooling to flag perfect scores, duplicate split examples, and train-validation/test metric gaps before model metrics are used."
   ],
   "remaining_tasks": [
-    "Deploy and verify a public Render URL",
+    "Deploy and verify a public Vercel URL",
     "Recover or document original train/validation/test datasets",
     "Reproduce the BERT/SVM model with split leakage checks",
     "Add external held-out evaluation before claiming real-world fact-checking accuracy"

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-07-24T08:05:52.407526+00:00",
+    "generated_at": "2026-07-24T08:21:49.757753+00:00",
     "python": "3.14.5",
     "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
     "iterations": 50,
@@ -10,27 +10,27 @@
   "benchmarks": {
     "claim_scoring": {
       "iterations": 50,
-      "median_ms": 0.0456,
-      "p95_ms": 0.0905,
-      "min_ms": 0.0441,
-      "max_ms": 0.6381,
+      "median_ms": 0.0436,
+      "p95_ms": 0.0492,
+      "min_ms": 0.0434,
+      "max_ms": 0.6064,
       "peak_memory_bytes": 26864
     },
     "evidence_ranking": {
       "iterations": 50,
-      "median_ms": 2.2767,
-      "p95_ms": 2.4855,
-      "min_ms": 2.1578,
-      "max_ms": 5.6855,
-      "peak_memory_bytes": 906192
+      "median_ms": 2.1576,
+      "p95_ms": 2.3275,
+      "min_ms": 2.074,
+      "max_ms": 5.2882,
+      "peak_memory_bytes": 898838
     },
     "full_analysis": {
       "iterations": 50,
-      "median_ms": 2.2747,
-      "p95_ms": 2.4567,
-      "min_ms": 2.1791,
-      "max_ms": 2.5944,
-      "peak_memory_bytes": 924923
+      "median_ms": 2.2146,
+      "p95_ms": 2.3142,
+      "min_ms": 2.1354,
+      "max_ms": 2.3773,
+      "peak_memory_bytes": 915854
     }
   }
 }

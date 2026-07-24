@@ -31,7 +31,7 @@ jobs:
         run: ruff format --check .
 
       - name: Compile Python
-        run: python -m compileall claim_detection evaluation benchmarks tests
+        run: python -m compileall api claim_detection evaluation benchmarks tests
 
       - name: Run tests
         run: pytest
@@ -42,8 +42,8 @@ jobs:
       - name: Run benchmark smoke test
         run: python benchmarks/run_benchmarks.py --smoke
 
-      - name: Build Docker image
-        run: docker build -t claim-evidence-checker:ci .
+      - name: Validate Vercel entrypoint import
+        run: python -c "from api.index import app; print(app.title)"
 
       - name: Validate FastAPI health endpoint
         run: |

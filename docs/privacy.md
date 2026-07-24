@@ -16,7 +16,7 @@ The application does not store claim text, evidence text, uploaded files, or use
 
 ## Logging
 
-FastAPI, Uvicorn, Gunicorn, and Render may log request metadata such as method, path, status code, timestamps, and client network metadata. The application does not intentionally log request bodies.
+FastAPI, Uvicorn, and Vercel may log request metadata such as method, path, status code, timestamps, and client network metadata. The application does not intentionally log request bodies.
 
 ## External Services
 

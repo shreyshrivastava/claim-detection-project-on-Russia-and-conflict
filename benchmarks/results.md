@@ -12,6 +12,6 @@ These benchmarks measure deterministic claim screening and evidence ranking only
 
 | Operation | Median ms | P95 ms | Min ms | Max ms | Peak Memory Bytes |
 |---|---:|---:|---:|---:|---:|
-| claim_scoring | 0.0456 | 0.0905 | 0.0441 | 0.6381 | 26864 |
-| evidence_ranking | 2.2767 | 2.4855 | 2.1578 | 5.6855 | 906192 |
-| full_analysis | 2.2747 | 2.4567 | 2.1791 | 2.5944 | 924923 |
+| claim_scoring | 0.0436 | 0.0492 | 0.0434 | 0.6064 | 26864 |
+| evidence_ranking | 2.1576 | 2.3275 | 2.0740 | 5.2882 | 898838 |
+| full_analysis | 2.2146 | 2.3142 | 2.1354 | 2.3773 | 915854 |

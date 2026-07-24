@@ -18,7 +18,7 @@ flowchart TB
 
 ## Design Decisions
 
-- Deterministic behavior is used for the deployed demo so CI and Render do not need GPUs, model downloads, live RSS feeds, or paid APIs.
+- Deterministic behavior is used for the deployed demo so CI and Vercel do not need GPUs, model downloads, live RSS feeds, or paid APIs.
 - The LLM/transformer notebook work is treated as historical until the original datasets and artifacts are made reproducible.
 - Artifact discovery is explicit: the app reports missing historical model files instead of silently pretending the BERT/SVM model is available.
 - Evidence ranking and stance are separated so retrieval quality and verdict quality can be evaluated independently.
@@ -27,6 +27,7 @@ flowchart TB
 ## Main Components
 
 - `claim_detection/api.py`: FastAPI app, validation, and health check.
+- `api/index.py`: Vercel Python runtime entrypoint.
 - `claim_detection/config.py`: paths and missing-artifact discovery.
 - `claim_detection/embeddings.py`: lazy BERT `[CLS]` embedding helper extracted from the notebook.
 - `claim_detection/model.py`: artifact-aware model service with deterministic fallback.

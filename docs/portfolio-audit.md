@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-The project started as a notebook-only BERT/SVM claim-detection experiment. That made it weak for a resume because a clean clone could not run the claimed model or reproduce the metrics. The upgrade adds a deployable FastAPI deterministic evidence-screening service, tests, CI, evaluation, benchmarks, Docker/Render configuration, and documentation that clearly separates software reliability from unverified model quality.
+The project started as a notebook-only BERT/SVM claim-detection dissertation experiment. That made it weak as a public repository because a clean clone could not run the claimed model or reproduce the metrics. The upgrade adds a deployable FastAPI deterministic evidence-screening service, tests, CI, evaluation, benchmarks, Vercel configuration, and documentation that clearly separates software reliability from unverified model quality.
 
 ## Resume Decision
 
@@ -44,7 +44,7 @@ Current overall score: 6.2/10.
 - 27 local tests covering core logic, API validation, artifact fallback, RSS mocking, evaluation, and benchmarks.
 - Synthetic evaluation with non-perfect verdict accuracy, so results are not overclaimed.
 - Leakage audit helper for future real model prediction files.
-- Docker and Render deployment configuration.
+- Vercel deployment configuration.
 
 ## Weaknesses
 
@@ -62,7 +62,7 @@ Current overall score: 6.2/10.
 - Added overfitting/leakage audit script.
 - Added pytest suite.
 - Added GitHub Actions CI and benchmark workflow.
-- Added Dockerfile, Render blueprint, runtime file, dependency files, `.gitignore`, and MIT license.
+- Added Vercel entrypoint/config, runtime file, dependency files, `.gitignore`, and MIT license.
 - Rewrote README as a technical case study.
 - Added architecture, deployment, limitations, privacy, and notebook audit docs.
 
@@ -94,15 +94,15 @@ The top-evidence result is labelled as a handcrafted fixture smoke-test signal, 
 
 Latest local deterministic benchmark:
 
-- claim scoring median: `0.0456 ms`
-- evidence ranking median: `2.2767 ms`
-- full analysis median: `2.2747 ms`
+- claim scoring median: `0.0436 ms`
+- evidence ranking median: `2.1576 ms`
+- full analysis median: `2.2146 ms`
 
 Benchmarks exclude BERT embedding generation, live RSS fetching, and deployed network latency.
 
 ## Deployment
 
-Prepared for Render using Docker and `render.yaml`.
+Prepared for Vercel using `vercel.json` and `api/index.py`.
 
 ## Live URL
 
@@ -118,23 +118,23 @@ No API keys or credentials were added. The deterministic app does not call paid 
 
 ## Resume Description
 
-Converted a notebook-only BERT/SVM claim-detection experiment into a deployable FastAPI evidence-screening service with deterministic evaluation, latency benchmarks, CI, Docker, and overfitting audit guardrails.
+Converted a dissertation BERT/SVM claim-detection experiment into a deployable FastAPI evidence-screening service with deterministic evaluation, latency benchmarks, CI, Vercel hosting configuration, and overfitting audit guardrails.
 
 ## Resume Bullets
 
 - Productionized a notebook-based claim-detection experiment into a FastAPI service with deterministic claim scoring, TF-IDF evidence ranking, and coarse stance classification.
-- Added 27 pytest tests, GitHub Actions CI, Docker/Render deployment configuration, and API health checks that run without GPUs, model downloads, paid APIs, or live RSS feeds.
-- Built synthetic evaluation and latency benchmark pipelines; measured 0.7500 verdict accuracy on 8 synthetic cases and 2.2747 ms median deterministic full-analysis latency locally.
+- Added 27 pytest tests, GitHub Actions CI, Vercel deployment configuration, and API health checks that run without GPUs, model downloads, paid APIs, or live RSS feeds.
+- Built synthetic evaluation and latency benchmark pipelines; measured 0.7500 verdict accuracy on 8 synthetic cases and 2.2146 ms median deterministic full-analysis latency locally.
 - Added overfitting and leakage audit tooling to flag perfect scores, duplicate split examples, and train-validation/test metric gaps before model metrics are used.
 
 ## Remaining Limitations
 
 - Reproduce the original BERT/SVM model from documented datasets.
 - Add split leakage checks for real train/validation/test data.
-- Deploy and verify a public Render URL.
+- Deploy and verify a public Vercel URL.
 - Replace synthetic evidence with a documented evidence source.
 - Add semantic retrieval or entailment model evaluation if the project is meant to be more than a deterministic demo.
 
 ## Recommended Next Step
 
-Deploy the FastAPI service to Render from this branch, then add real model artifacts or a reproducible public dataset only if the leakage audit does not flag overfitting or contamination.
+Deploy the FastAPI service to Vercel from this branch, then add real model artifacts or a reproducible public dataset only if the leakage audit does not flag overfitting or contamination.

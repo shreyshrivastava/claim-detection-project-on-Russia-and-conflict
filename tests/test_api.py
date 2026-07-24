@@ -35,5 +35,5 @@ def test_analyze_endpoint_rejects_too_short_claim() -> None:
 def test_index_page_renders_demo() -> None:
     response = client.get("/")
     assert response.status_code == 200
-    assert "Claim Evidence Checker" in response.text
-    assert "Ranked Evidence" in response.text
+    assert "Claim Detection and Evidence Screening" in response.text
+    assert "QMUL dissertation prototype" in response.text

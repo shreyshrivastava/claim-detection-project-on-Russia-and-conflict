@@ -8,7 +8,10 @@ client = TestClient(app)
 def test_health_endpoint() -> None:
     response = client.get("/health")
     assert response.status_code == 200
-    assert response.json()["status"] == "healthy"
+    payload = response.json()
+    assert payload["status"] == "healthy"
+    assert payload["mode"] == "deterministic_demo"
+    assert payload["artifact_available"] is False
 
 
 def test_analyze_endpoint_uses_default_evidence() -> None:
@@ -33,3 +36,4 @@ def test_index_page_renders_demo() -> None:
     response = client.get("/")
     assert response.status_code == 200
     assert "Claim Evidence Checker" in response.text
+    assert "Ranked Evidence" in response.text

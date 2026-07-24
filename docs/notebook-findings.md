@@ -25,8 +25,9 @@ The notebooks reference artifacts that are not tracked:
 - `ru22fact_train.csv`
 - `ru22fact_validate.csv`
 - `ru22fact_test.csv`
-- trained BERT weights
-- trained SVM/joblib artifacts
+- `bert_model.pth`
+- `svm_model.joblib`
+- saved tokenizer directory such as `bert-base-uncased-tokenizer/`
 
 Because these files are missing, a fresh clone cannot reproduce the historical model, training run, or RSS inference notebook.
 
@@ -42,10 +43,12 @@ The visible notebook code does not show a perfect score, but the current reposit
 
 ## Added Guardrail
 
-`evaluation/generalization_audit.py` can audit real train/validation/test prediction CSV files. It flags:
+`evaluation/leakage_audit.py` can audit real train/validation/test prediction CSV files. It flags:
 
 - suspicious perfect scores
 - small split sizes
-- duplicate text keys across splits
+- duplicate claim/evidence keys across splits
 - train-validation accuracy gaps over 10 percentage points
 - validation-test accuracy gaps over 10 percentage points
+
+`evaluation/generalization_audit.py` remains as a backward-compatible import wrapper.

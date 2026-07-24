@@ -18,7 +18,13 @@ curl https://YOUR_RENDER_SERVICE.onrender.com/health
 Expected response:
 
 ```json
-{"status":"healthy","app":"claim-evidence-checker","mode":"deterministic"}
+{
+  "status": "healthy",
+  "app": "claim-evidence-checker",
+  "mode": "deterministic_demo",
+  "artifact_available": false,
+  "missing_artifacts": [".../artifacts/svm_model.joblib", "..."]
+}
 ```
 
 ## Cost Profile

@@ -27,11 +27,11 @@
   "ci_status": "Workflow added; not yet verified on GitHub for this branch",
   "deployment_status": "Render Docker deployment files prepared; live URL not verified",
   "benchmark_summary": {
-    "claim_scoring_median_ms": 0.0419,
-    "evidence_ranking_median_ms": 2.4488,
-    "full_analysis_median_ms": 2.4862,
+    "claim_scoring_median_ms": 0.0456,
+    "evidence_ranking_median_ms": 2.2767,
+    "full_analysis_median_ms": 2.2747,
     "iterations": 50,
-    "environment": "macOS-26.5.2-arm64-arm-64bit, Python 3.12.13"
+    "environment": "macOS-26.5.2-arm64-arm-64bit-Mach-O, Python 3.14.5"
   },
   "evaluation_summary": {
     "case_count": 8,
@@ -42,8 +42,8 @@
   },
   "resume_bullets": [
     "Productionized a notebook-based claim-detection experiment into a FastAPI service with deterministic claim scoring, TF-IDF evidence ranking, and coarse stance classification.",
-    "Added 24 pytest tests, GitHub Actions CI, Docker/Render deployment configuration, and API health checks that run without GPUs, model downloads, paid APIs, or live RSS feeds.",
-    "Built synthetic evaluation and latency benchmark pipelines; measured 0.7500 verdict accuracy on 8 synthetic cases and 2.4862 ms median deterministic full-analysis latency locally.",
+    "Added 27 pytest tests, GitHub Actions CI, Docker/Render deployment configuration, and API health checks that run without GPUs, model downloads, paid APIs, or live RSS feeds.",
+    "Built synthetic evaluation and latency benchmark pipelines; measured 0.7500 verdict accuracy on 8 synthetic cases and 2.2747 ms median deterministic full-analysis latency locally.",
     "Added overfitting and leakage audit tooling to flag perfect scores, duplicate split examples, and train-validation/test metric gaps before model metrics are used."
   ],
   "remaining_tasks": [

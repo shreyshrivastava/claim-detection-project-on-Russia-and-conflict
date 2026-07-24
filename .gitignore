@@ -13,3 +13,4 @@ models/
 *.bin
 .env
 .DS_Store
+.vercel

@@ -1,0 +1,14 @@
+{
+  "builds": [
+    {
+      "src": "claim_detection/api.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "claim_detection/api.py"
+    }
+  ]
+}

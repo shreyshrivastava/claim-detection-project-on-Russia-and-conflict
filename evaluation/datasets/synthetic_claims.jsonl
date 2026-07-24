@@ -1,0 +1,8 @@
+{"id":"case-001","claim":"The International Relief Mission delivered 20 generators to Northport hospital on Tuesday.","expected_verdict":"supported","expected_top_evidence_id":"doc-001"}
+{"id":"case-002","claim":"The coastal power plant restarted full operations on Friday.","expected_verdict":"refuted","expected_top_evidence_id":"doc-002"}
+{"id":"case-003","claim":"The border rail crossing reopened for humanitarian freight after an inspection pause.","expected_verdict":"supported","expected_top_evidence_id":"doc-003"}
+{"id":"case-004","claim":"A satellite internet hub opened in Lydan province this morning.","expected_verdict":"uncertain","expected_top_evidence_id":"doc-005"}
+{"id":"case-005","claim":"Did officials discuss the school repair grant?","expected_verdict":"not_a_clear_claim","expected_top_evidence_id":"doc-004"}
+{"id":"case-006","claim":"The ministry purchased emergency radio units for three clinics.","expected_verdict":"uncertain","expected_top_evidence_id":"doc-006"}
+{"id":"case-007","claim":"Observers documented shelling near Eastford on Monday.","expected_verdict":"supported","expected_top_evidence_id":"doc-007"}
+{"id":"case-008","claim":"The ceasefire corridor opened after midnight.","expected_verdict":"refuted","expected_top_evidence_id":"doc-008"}

@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+.venv*/
+venv/
+artifacts/
+models/
+*.joblib
+*.pkl
+*.pt
+*.bin
+.env
+.DS_Store

@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: claim-evidence-checker
+    runtime: docker
+    plan: free
+    healthCheckPath: /health

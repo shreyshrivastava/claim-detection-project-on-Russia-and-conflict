@@ -1,0 +1,55 @@
+{
+  "project_name": "Claim Evidence Checker",
+  "repository": "https://github.com/shreyshrivastava/claim-detection-project-on-Russia-and-conflict",
+  "resume_decision": "Supporting resume project",
+  "target_roles": [
+    "Applied AI Engineer",
+    "Machine Learning Engineer",
+    "LLM/Generative AI Engineer",
+    "Python Backend Engineer",
+    "AI Data Engineer"
+  ],
+  "scores": {
+    "technical_depth": 5,
+    "software_engineering_quality": 7,
+    "ai_ml_relevance": 6,
+    "product_usefulness": 5,
+    "reliability": 7,
+    "documentation": 8,
+    "deployment_readiness": 7,
+    "testing_quality": 7,
+    "originality": 4,
+    "resume_value": 6,
+    "initial_overall": 3.0,
+    "current_overall": 6.2
+  },
+  "live_url": "",
+  "ci_status": "Workflow added; not yet verified on GitHub for this branch",
+  "deployment_status": "Render Docker deployment files prepared; live URL not verified",
+  "benchmark_summary": {
+    "claim_scoring_median_ms": 0.0419,
+    "evidence_ranking_median_ms": 2.4488,
+    "full_analysis_median_ms": 2.4862,
+    "iterations": 50,
+    "environment": "macOS-26.5.2-arm64-arm-64bit, Python 3.12.13"
+  },
+  "evaluation_summary": {
+    "case_count": 8,
+    "verdict_accuracy": 0.75,
+    "top_evidence_match_rate": 1.0,
+    "deterministic_reproducibility": true,
+    "warning": "Synthetic fixture only; top-evidence 1.0 is not real-world model accuracy"
+  },
+  "resume_bullets": [
+    "Productionized a notebook-based claim-detection experiment into a FastAPI service with deterministic claim scoring, TF-IDF evidence ranking, and coarse stance classification.",
+    "Added 24 pytest tests, GitHub Actions CI, Docker/Render deployment configuration, and API health checks that run without GPUs, model downloads, paid APIs, or live RSS feeds.",
+    "Built synthetic evaluation and latency benchmark pipelines; measured 0.7500 verdict accuracy on 8 synthetic cases and 2.4862 ms median deterministic full-analysis latency locally.",
+    "Added overfitting and leakage audit tooling to flag perfect scores, duplicate split examples, and train-validation/test metric gaps before model metrics are used."
+  ],
+  "remaining_tasks": [
+    "Deploy and verify a public Render URL",
+    "Recover or document original train/validation/test datasets",
+    "Reproduce the BERT/SVM model with split leakage checks",
+    "Add external held-out evaluation before claiming real-world fact-checking accuracy"
+  ]
+}

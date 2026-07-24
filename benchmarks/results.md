@@ -10,7 +10,9 @@ These benchmarks measure deterministic claim screening and evidence ranking only
 
 ## Latency
 
-| Operation | Median ms | P95 ms | Min ms | Max ms | Peak Memory Bytes |
+Median, p95, min, and max values are latency measurements in milliseconds. They are not accuracy scores.
+
+| Operation | Median latency (ms) | p95 latency (ms) | Min latency (ms) | Max latency (ms) | Peak memory (bytes) |
 |---|---:|---:|---:|---:|---:|
 | claim_scoring | 0.0456 | 0.0905 | 0.0441 | 0.6381 | 26864 |
 | evidence_ranking | 2.2767 | 2.4855 | 2.1578 | 5.6855 | 906192 |

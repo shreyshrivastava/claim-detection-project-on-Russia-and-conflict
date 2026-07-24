@@ -53,10 +53,11 @@ def render_index() -> str:
       <body>
         <main>
           <aside>
-            <span class="badge">Evidence-screening demo</span>
+            <span class="badge">MSc Dissertation Project</span>
             <h1>Claim Evidence Checker</h1>
-            <p>Enter a factual claim and compare it with a small synthetic evidence set. The app ranks evidence, estimates claim-likeness, and reports a cautious stance.</p>
-            <div class="warning">Portfolio demo only. This is not a professional fact-checking or safety-critical service.</div>
+            <p>A dissertation project at <strong>Queen Mary University of London</strong> that turns notebook-era BERT/SVM claim-detection research into a tested FastAPI evidence-ranking and stance-screening pipeline. Enter a factual claim and compare it with evidence snippets.</p>
+            <p style="margin-top:6px"><a href="https://claim-detection-project.vercel.app" style="color:#81d4cf;text-decoration:underline">Live on Vercel →</a></p>
+            <div class="warning">Academic dissertation demo. This is not a professional fact-checking or safety-critical service.</div>
             <section>
               <h2>Examples</h2>
               <div class="examples">

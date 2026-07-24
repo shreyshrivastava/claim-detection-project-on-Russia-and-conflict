@@ -72,7 +72,7 @@ def render_index() -> str:
               <label for="claim">Claim</label>
               <textarea id="claim">The International Relief Mission delivered 20 generators to Northport hospital on Tuesday.</textarea>
               <div style="margin: 14px 0; display: flex; align-items: center; gap: 8px;">
-                <input type="checkbox" id="use_rss" style="width: 18px; height: 18px; cursor: pointer; margin: 0;" />
+                <input type="checkbox" id="use_rss" checked style="width: 18px; height: 18px; cursor: pointer; margin: 0;" />
                 <label for="use_rss" style="margin: 0; cursor: pointer; font-weight: 500; font-size: 14px; color: var(--muted);">Use Live RSS Conflict & World News feeds (Real-time detection)</label>
               </div>
               <div class="controls">

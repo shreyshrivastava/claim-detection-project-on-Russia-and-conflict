@@ -240,7 +240,7 @@ def query_hf_llm(claim: str, documents: list[EvidenceDocument]) -> dict[str, obj
     try:
         data = json.dumps(payload).encode("utf-8")
         req = urllib.request.Request(url, data=data, headers=headers, method="POST")
-        with urllib.request.urlopen(req, timeout=5.0) as response:
+        with urllib.request.urlopen(req, timeout=8.0) as response:
             res_body = response.read().decode("utf-8")
             res_json = json.loads(res_body)
             assistant_message = res_json["choices"][0]["message"]["content"]

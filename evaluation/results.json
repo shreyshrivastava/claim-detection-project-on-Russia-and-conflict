@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "generated_at": "2026-07-24T08:05:51.574522+00:00",
-    "python": "3.14.5",
+    "generated_at": "2026-07-24T09:57:33.183415+00:00",
+    "python": "3.14.3",
     "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
     "dataset": "evaluation/datasets/synthetic_claims.jsonl",
     "mode": "full",

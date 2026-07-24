@@ -22,6 +22,41 @@ ASSERTIVE_VERBS = {
     "said",
     "signed",
     "suspended",
+    # Action and conflict verbs
+    "launched",
+    "attacked",
+    "struck",
+    "destroyed",
+    "seized",
+    "captured",
+    "killed",
+    "injured",
+    "targeted",
+    "fired",
+    "advanced",
+    "retreated",
+    "withdrew",
+    "invaded",
+    # Statement and reporting verbs
+    "claimed",
+    "stated",
+    "asserted",
+    "alleged",
+    "accused",
+    "rejected",
+    "condemned",
+    "declared",
+    "warned",
+    "called",
+    "demanded",
+    "agreed",
+    "met",
+    # Occurrence verbs
+    "occurred",
+    "happened",
+    "began",
+    "ended",
+    "ceased",
 }
 
 HEDGING_TERMS = {
@@ -86,7 +121,7 @@ def score_claim(text: str) -> ClaimSignal:
 
     score = round(max(0.0, min(score, 1.0)), 4)
     return ClaimSignal(
-        is_claim=score >= 0.45,
+        is_claim=score >= 0.35,
         claim_score=score,
         features={
             "token_count": len(tokens),

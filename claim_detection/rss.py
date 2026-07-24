@@ -26,18 +26,25 @@ def fetch_rss_documents(
 
     documents: list[EvidenceDocument] = []
     for feed_url in feed_urls:
-        parsed = feedparser.parse(feed_url)
-        for index, entry in enumerate(parsed.entries[:max_entries_per_feed]):
-            title = normalize_text(getattr(entry, "title", "Untitled RSS entry"))
-            summary = normalize_text(getattr(entry, "summary", ""))
-            link = getattr(entry, "link", feed_url)
-            documents.append(
-                EvidenceDocument(
-                    id=f"{feed_url}#{index}",
-                    title=title,
-                    text=summary,
-                    source=link,
-                    published_at=getattr(entry, "published", None),
+        try:
+            parsed = feedparser.parse(feed_url)
+            # Some feeds might return parsed error responses/empty list of entries
+            if not getattr(parsed, "entries", None):
+                continue
+            for index, entry in enumerate(parsed.entries[:max_entries_per_feed]):
+                title = normalize_text(getattr(entry, "title", "Untitled RSS entry"))
+                summary = normalize_text(getattr(entry, "summary", ""))
+                link = getattr(entry, "link", feed_url)
+                documents.append(
+                    EvidenceDocument(
+                        id=f"{feed_url}#{index}",
+                        title=title,
+                        text=summary,
+                        source=link,
+                        published_at=getattr(entry, "published", None),
+                    )
                 )
-            )
+        except Exception:
+            # Silently skip feed failures for robustness
+            continue
     return documents

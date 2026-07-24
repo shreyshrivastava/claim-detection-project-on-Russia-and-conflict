@@ -71,6 +71,10 @@ def render_index() -> str:
             <section class="panel">
               <label for="claim">Claim</label>
               <textarea id="claim">The International Relief Mission delivered 20 generators to Northport hospital on Tuesday.</textarea>
+              <div style="margin: 14px 0; display: flex; align-items: center; gap: 8px;">
+                <input type="checkbox" id="use_rss" style="width: 18px; height: 18px; cursor: pointer; margin: 0;" />
+                <label for="use_rss" style="margin: 0; cursor: pointer; font-weight: 500; font-size: 14px; color: var(--muted);">Use Live RSS Conflict & World News feeds (Real-time detection)</label>
+              </div>
               <div class="controls">
                 <button class="primary" id="analyze">Analyze claim</button>
                 <span class="status" id="status">Ready</span>
@@ -101,7 +105,10 @@ def render_index() -> str:
               const response = await fetch("/analyze", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({ claim: claimBox.value })
+                body: JSON.stringify({
+                  claim: claimBox.value,
+                  use_rss: document.getElementById("use_rss").checked
+                })
               });
               if (!response.ok) throw new Error("Request failed with status " + response.status);
               const data = await response.json();

@@ -32,6 +32,7 @@ class AnalyzeRequest(BaseModel):
     claim: str = Field(..., min_length=3, max_length=1000)
     evidence: list[EvidencePayload] | None = None
     top_k: int = Field(default=3, ge=1, le=10)
+    use_rss: bool = False
 
 
 @app.get("/health")
@@ -48,8 +49,8 @@ def health() -> dict[str, object]:
 
 @app.post("/analyze")
 def analyze(payload: AnalyzeRequest) -> dict[str, object]:
-    documents = (
-        [
+    if payload.evidence:
+        documents = [
             EvidenceDocument(
                 id=item.id,
                 title=item.title,
@@ -59,9 +60,27 @@ def analyze(payload: AnalyzeRequest) -> dict[str, object]:
             )
             for item in payload.evidence
         ]
-        if payload.evidence
-        else load_default_evidence()
-    )
+    elif payload.use_rss:
+        from claim_detection.rss import fetch_rss_documents
+        import socket
+        socket.setdefaulttimeout(3.0)
+        CREDIBLE_SOURCES = [
+            "https://www.ukrinform.net/rss",
+            "https://tass.com/rss/v2.xml",
+            "https://www.aljazeera.com/xml/rss/all.xml",
+            "https://www.kyivpost.com/feed",
+            "https://www.rt.com/rss/",
+            "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
+            "http://feeds.bbci.co.uk/news/world/europe/rss.xml",
+            "https://www.theguardian.com/world/rss",
+        ]
+        try:
+            documents = fetch_rss_documents(CREDIBLE_SOURCES, max_entries_per_feed=5)
+        except Exception:
+            documents = load_default_evidence()
+    else:
+        documents = load_default_evidence()
+
     return model_service.analyze(payload.claim, documents, top_k=payload.top_k).to_dict()
 
 
